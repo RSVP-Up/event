@@ -26,7 +26,28 @@
 //   ],
 // }
 
+const faker = require('faker')
+
 // There are usually less organizations than there are events
-// Or, in other words, each organization can hold multiple events
+// Or, in other words, each organization can hold multiple events, of which there are 100
 let organizations = [];
 
+for (let i = 0; i < 30; i++) {
+  const orgId = 'o' + i;
+  const name = faker.company.companyName();
+  const private = faker.random.boolean();
+  const members;
+  const events;
+
+  let newOrg = {
+    orgId,
+    name,
+    private,
+    members,
+    events
+  }
+
+  organizations.push(newOrg);
+}
+
+//
