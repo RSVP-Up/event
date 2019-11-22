@@ -75,10 +75,11 @@ var memberIds = (max) => {
 
 var orgEvents = (range) => {
   let events = [];
+
   for (let i = 0; i < 5; i++) {
   const eventId = range * 5 + i;
   const title = faker.random.catchPhrase();
-  const local_date_time = faker.date.between('2019-10-01', '2020-9-30');
+  const local_date_time = faker.date.between('2019-10-01', '2020-4-30');
   const series = eventSeries();
 
   let newEvent = {
@@ -89,7 +90,6 @@ var orgEvents = (range) => {
   }
 
   events.push(newEvent);
-
   }
 
   return events;
@@ -102,7 +102,6 @@ var eventSeries = () => {
   const frequency = {
     day_of_week: faker.date.weekday(),
     interval: faker.random.arrayElement(ordinals);
-    endDate: faker.date.future(1),
   }
   const description = 'Every ' + frequency.interval + ' ' + frequency.day_of_week + ' of the month until May 2020';
 
