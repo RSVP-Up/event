@@ -45,6 +45,7 @@ const events = [];
 //     eventId: int,
 //     title: string,
 //     local_date_time: ISO 8601,
+//     orgId: string,
 //     series: {
 //       description: string,
 //       frequency: {
@@ -60,7 +61,7 @@ let generateEvents = () => {
     const eventId = i;
     const title = faker.company.catchPhrase();
     const local_date_time = faker.date.between('2019-10-01', '2020-4-30');
-    const orgId = `0 ${faker.random.number(19)}`;
+    const orgId = `o${faker.random.number(19)}`;
     const series = eventSeries();
     const newEvent = {
       eventId,
