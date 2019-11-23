@@ -67,17 +67,20 @@ let eventSeries = () => {
 };
 
 // Given a maximum quantity max, returns an array of memberIds between 1 and max
-let orgEvents = (range) => {
-  const events = [];
-  for (let i = 0; i < 5; i += 1) {
-    const eventId = range * 5 + i;
+const events = [];
+
+let generateEvents = () => {
+  for (let i = 0; i < 100; i += 1) {
+    const eventId = i;
     const title = faker.company.catchPhrase();
     const local_date_time = faker.date.between('2019-10-01', '2020-4-30');
+    const orgId = `0 ${faker.random.number(19)}`;
     const series = eventSeries();
     const newEvent = {
       eventId,
       title,
       local_date_time,
+      orgId,
       series,
     };
     events.push(newEvent);
@@ -87,26 +90,24 @@ let orgEvents = (range) => {
 
 const organizations = [];
 
-for (let i = 0; i < 20; i += 1) {
-  const orgId = `o${i}`;
-  const org_name = faker.company.companyName();
-  const org_private = faker.random.boolean();
-  const members = eventMembers();
-  const events = orgEvents(i);
+let generateOrgs = () => {
+  for (let i = 0; i < 20; i += 1) {
+    const orgId = `o${i}`;
+    const org_name = faker.company.companyName();
+    const org_private = faker.random.boolean();
+    const members = eventMembers();
+    const newOrg = {
+      orgId,
+      org_name,
+      org_private,
+      members,
+    };
+    organizations.push(newOrg);
+  }
+};
 
-  const newOrg = {
-    orgId,
-    org_name,
-    org_private,
-    members,
-    events,
-  };
+generateOrgs();
+generateEvents();
 
-  organizations.push(newOrg);
-}
-
-module.exports.organization = organizations;
-module.exports.eventMembers = eventMembers;
-module.exports.memberIds = memberIds;
-module.exports.orgEvents = orgEvents;
-module.exports.eventSeries = eventSeries;
+module.exports.organizations = organizations;
+module.exports.events = events;
