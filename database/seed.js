@@ -1,36 +1,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-// Org model in MongoDB
-// Org =
-// {
-//  orgId: int,
-//  org_name: string,
-//  org_private: boolean,
-//  members: {
-//    organizers: [ memberId: “m” + int, …],
-//    group_members: [ memberId: “m” + int , …],
-//  },
-//  events: [{
-//     eventId: int,
-//     title: string,
-//     local_date_time: ISO 8601,
-//     series: {
-//       description: string,
-//       frequency: {
-//         day_of_week: string,
-//         interval: int,
-//         week_of_month: int
-//        },
-//      },
-//   }...],
-// }
 
 const faker = require('faker');
 
-// There are usually less organizations than there are events
-// Or, in other words, each organization can hold multiple events, of which there are 100
-// With 20 events distributed evenly that is an average of 5 events per org
-
+// Given a maximum quantity max, returns an array of memberIds between 1 and max
 const memberIds = (max) => {
   const ids = [];
   const numberOfElements = faker.random.number({ min: 1, max });
@@ -66,8 +39,21 @@ let eventSeries = () => {
   return repeat ? newSeries : null;
 };
 
-// Given a maximum quantity max, returns an array of memberIds between 1 and max
 const events = [];
+
+//  events: {
+//     eventId: int,
+//     title: string,
+//     local_date_time: ISO 8601,
+//     series: {
+//       description: string,
+//       frequency: {
+//         day_of_week: string,
+//         interval: int,
+//         week_of_month: int
+//        },
+//      },
+//   }
 
 let generateEvents = () => {
   for (let i = 0; i < 100; i += 1) {
@@ -90,6 +76,19 @@ let generateEvents = () => {
 
 const organizations = [];
 
+// Org =
+// {
+//  orgId: int,
+//  org_name: string,
+//  org_private: boolean,
+//  members: {
+//    organizers: [ memberId, otherMemberId, …],
+//    group_members: [ memberId, otherMemberId , …],
+//  }
+
+// There are usually less organizations than there are events
+// Or, in other words, each organization can hold multiple events, of which there are 100
+// With 20 events distributed evenly that is an average of 5 events per org
 let generateOrgs = () => {
   for (let i = 0; i < 20; i += 1) {
     const orgId = `o${i}`;
