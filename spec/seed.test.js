@@ -23,15 +23,25 @@ describe('Events', () => {
     test('Each event should be an object', () => {
       expect(event).to.be.an('object');
     });
-    test('Each event should store title, date, orgId, and series', () => {
-      const keys = ['title', 'local_date_time', 'orgId', 'series'];
+    test('Each event should store id, title, date, orgId, and series', () => {
+      const keys = ['eventId', 'title', 'local_date_time', 'orgId', 'series'];
       expect(event).to.have.all.keys(keys);
     });
-    describe('Each property should have the right data type', () => {
-      beforeEach(() => {
-        const eventIdx = Math.floor(Math.random() * 100);
-        event = events[eventIdx];
-      });
+    test('Each property should have the right data type', () => {
+      const rightTypes = _.reduce(event, (acc, value, key) => {
+        let rightType;
+        if (key === 'eventId') {
+          rightType = (typeof value === 'number');
+        } else if (key === 'local_date_time') {
+          rightType = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(value.toISOString());
+        } else if (key === 'series') {
+          rightType = (typeof value === 'object');
+        } else {
+          rightType = (typeof value === 'string');
+        }
+        return acc && rightType;
+      }, true);
+      expect(rightTypes).to.equal(true);
     });
   });
   describe('Series Properties', () => {
@@ -43,6 +53,7 @@ describe('Events', () => {
       const repeatEvents = _.filter(events, (event) => event.series !== null);
       const eventIdx = Math.floor(Math.random() * repeatEvents.length);
       expect(repeatEvents[eventIdx].series).to.have.property('description');
+      expect(repeatEvents[eventIdx].series.description).to.be.a('string');
     });
   });
 });
@@ -67,13 +78,47 @@ describe('Organizations', () => {
     test('Each organization should be an object', () => {
       expect(org).to.be.an('object');
     });
-    test('Each organization should store org_name, whether it\'s private, and members', () => {
-      const keys = ['org_name', 'org_private', 'members'];
+    test('Each organization should store orgId, org_name, whether it\'s private, and members', () => {
+      const keys = ['orgId', 'org_name', 'org_private', 'members'];
       expect(org).to.have.all.keys(keys);
     });
-    test('The members should include organizers and group members', () => {
-      const memberProperties = ['organizers', 'group_members'];
-      expect(org.members).to.have.all.keys(memberProperties);
+    test('Each property should have the right data type', () => {
+      const rightTypes = _.reduce(org, (acc, value, key) => {
+        let rightType;
+        if (key === 'orgId') {
+          rightType = /o\d/.test(value);
+        } else if (key === 'members') {
+          rightType = (typeof value === 'object');
+        } else if (key === 'org_private') {
+          rightType = (typeof value === 'boolean');
+        } else {
+          rightType = (typeof value === 'string');
+        }
+        return acc && rightType;
+      }, true);
+      expect(rightTypes).to.equal(true);
+    });
+    describe('Members', () => {
+      const orgMembers = _.map(organizations, 'members');
+      test('The members should include organizers and group members', () => {
+        const memberProperties = ['organizers', 'group_members'];
+        const member = Math.floor(Math.random() * 20);
+        expect(orgMembers[member]).to.have.all.keys(memberProperties);
+      });
+      test('Organizers and group members should be arrays', () => {
+        const member = Math.floor(Math.random() * 20);
+        expect(Array.isArray(orgMembers[member].organizers)).to.equal(true);
+        expect(Array.isArray(orgMembers[member].group_members)).to.equal(true);
+      });
+      test('Organizers and group members should be memberIds between 0 and 499', () => {
+        const members = _.flatMap(orgMembers, 'group_members');
+        const organizers = _.flatMap(orgMembers, 'organizers');
+        const totalMembers = _.uniq(_.concat(members, organizers));
+        const rightFormat = _.reduce(totalMembers, (acc, value) => {
+          return acc && /m([0-9]|[1-8][0-9]|9[0-9]|[1-3][0-9]{2}|4[0-8][0-9]|49[0-9])/.test(value);
+        }, true);
+        expect(rightFormat).to.equal(true);
+      });
     });
   });
 });
