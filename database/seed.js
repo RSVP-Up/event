@@ -1,7 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
 
 const faker = require('faker');
+const Event = require('./Event.js');
+const Org = require('./Org.js');
 
 // Given a maximum quantity max, returns an array of memberIds between 1 and max
 const memberIds = (max) => {
@@ -42,16 +45,15 @@ let eventSeries = () => {
 const events = [];
 
 //  events: {
-//     eventId: int,
-//     title: string,
+//     eventId: Number (integer),
+//     title: String,
 //     local_date_time: ISO 8601,
-//     orgId: string,
+//     orgId: String,
 //     series: {
-//       description: string,
+//       description: String,
 //       frequency: {
-//         day_of_week: string,
-//         interval: int,
-//         week_of_month: int
+//         day_of_week: String,
+//         interval: Number,
 //        },
 //      },
 //   }
@@ -79,8 +81,8 @@ const organizations = [];
 
 // Org =
 // {
-//  orgId: int,
-//  org_name: string,
+//  orgId: Number(integer),
+//  org_name: String,
 //  org_private: boolean,
 //  members: {
 //    organizers: [ memberId, otherMemberId, …],
@@ -111,3 +113,15 @@ generateEvents();
 
 module.exports.organizations = organizations;
 module.exports.events = events;
+
+const insertSampleEventsAndOrgs = () => {
+  Org.create(organizations)
+    .then(() => {
+      Event.create(events);
+    })
+    .then(() => {
+      db.disconnect();
+    });
+};
+
+insertSampleEventsAndOrgs();
