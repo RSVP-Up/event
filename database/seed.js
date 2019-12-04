@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-
 const faker = require('faker');
+const db = require('./index.js');
 const Event = require('./Event.js');
 const Org = require('./Org.js');
 
@@ -16,12 +16,12 @@ const memberIds = (max) => {
   }
   return ids;
 };
-// Each organization has between 1 and 4 organizers and up to 50 members
-let eventMembers = () => {
-  const organizers = memberIds(4);
+// Each organization has between 1 and 4 founders and up to 50 members
+let orgMembers = () => {
+  const founders = memberIds(4);
   const group_members = memberIds(50);
   const members = {
-    organizers,
+    founders,
     group_members,
   };
   return members;
@@ -85,7 +85,7 @@ const organizations = [];
 //  org_name: String,
 //  org_private: boolean,
 //  members: {
-//    organizers: [ memberId, otherMemberId, …],
+//    founders: [ memberId, otherMemberId, …],
 //    group_members: [ memberId, otherMemberId , …],
 //  }
 
@@ -97,7 +97,7 @@ let generateOrgs = () => {
     const orgId = `o${i}`;
     const org_name = faker.company.companyName();
     const org_private = faker.random.boolean();
-    const members = eventMembers();
+    const members = orgMembers();
     const newOrg = {
       orgId,
       org_name,
