@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const { expect } = require('chai');
-const { organizations } = require('../../database/seed.js');
+const { organizations } = require('../../database/seed');
 const { events } = require('../../database/seed.js');
 
 describe('Events', () => {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const db = require('./index.js');
 
 mongoose.Promise = require('bluebird');
 
@@ -12,7 +13,7 @@ const orgSchema = new Schema({
     founders: [String],
     group_members: [String],
   },
-}, { _id: false });
+});
 
 const Org = mongoose.model('Org', orgSchema);
 

@@ -116,11 +116,13 @@ module.exports.events = events;
 
 const insertSampleEventsAndOrgs = () => {
   Org.create(organizations)
-    .then(() => {
-      Event.create(events);
+    .then((results) => {
+      console.log(results);
+      return Event.create(events);
     })
-    .then(() => {
-      db.disconnect();
+    .then((results) => {
+      console.log(results);
+      db.close();
     });
 };
 

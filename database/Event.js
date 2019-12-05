@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const db = require('./index.js');
+const db = require('./index.js');
 
 mongoose.Promise = require('bluebird');
 
@@ -17,7 +17,7 @@ const eventSchema = new Schema({
       interval: Number,
     },
   },
-}, { _id: false });
+});
 
 const Event = mongoose.model('Event', eventSchema);
 
