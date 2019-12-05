@@ -1,7 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 /* eslint-disable prefer-const */
-
 const faker = require('faker');
+const db = require('./index.js');
+const Event = require('./Event.js');
+const Org = require('./Org.js');
 
 // Given a maximum quantity max, returns an array of memberIds between 1 and max
 const memberIds = (max) => {
@@ -13,12 +16,12 @@ const memberIds = (max) => {
   }
   return ids;
 };
-// Each organization has between 1 and 4 organizers and up to 50 members
-let eventMembers = () => {
-  const organizers = memberIds(4);
+// Each organization has between 1 and 4 founders and up to 50 members
+let orgMembers = () => {
+  const founders = memberIds(4);
   const group_members = memberIds(50);
   const members = {
-    organizers,
+    founders,
     group_members,
   };
   return members;
@@ -42,16 +45,15 @@ let eventSeries = () => {
 const events = [];
 
 //  events: {
-//     eventId: int,
-//     title: string,
+//     eventId: Number (integer),
+//     title: String,
 //     local_date_time: ISO 8601,
-//     orgId: string,
+//     orgId: String,
 //     series: {
-//       description: string,
+//       description: String,
 //       frequency: {
-//         day_of_week: string,
-//         interval: int,
-//         week_of_month: int
+//         day_of_week: String,
+//         interval: Number,
 //        },
 //      },
 //   }
@@ -79,11 +81,11 @@ const organizations = [];
 
 // Org =
 // {
-//  orgId: int,
-//  org_name: string,
+//  orgId: Number(integer),
+//  org_name: String,
 //  org_private: boolean,
 //  members: {
-//    organizers: [ memberId, otherMemberId, …],
+//    founders: [ memberId, otherMemberId, …],
 //    group_members: [ memberId, otherMemberId , …],
 //  }
 
@@ -95,7 +97,7 @@ let generateOrgs = () => {
     const orgId = `o${i}`;
     const org_name = faker.company.companyName();
     const org_private = faker.random.boolean();
-    const members = eventMembers();
+    const members = orgMembers();
     const newOrg = {
       orgId,
       org_name,
@@ -111,3 +113,17 @@ generateEvents();
 
 module.exports.organizations = organizations;
 module.exports.events = events;
+
+const insertSampleEventsAndOrgs = () => {
+  Org.create(organizations)
+    .then((results) => {
+      console.log(results);
+      return Event.create(events);
+    })
+    .then((results) => {
+      console.log(results);
+      db.close();
+    });
+};
+
+insertSampleEventsAndOrgs();

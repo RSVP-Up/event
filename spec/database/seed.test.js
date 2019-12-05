@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { expect } = require('chai');
-const { organizations } = require('../database/seed');
-const { events } = require('../database/seed.js');
+const { organizations } = require('../../database/seed');
+const { events } = require('../../database/seed.js');
 
 describe('Events', () => {
   describe('Range', () => {
@@ -100,20 +100,20 @@ describe('Organizations', () => {
     });
     describe('Members', () => {
       const orgMembers = _.map(organizations, 'members');
-      test('The members should include organizers and group members', () => {
-        const memberProperties = ['organizers', 'group_members'];
+      test('The members should include founders and group members', () => {
+        const memberProperties = ['founders', 'group_members'];
         const member = Math.floor(Math.random() * 20);
         expect(orgMembers[member]).to.have.all.keys(memberProperties);
       });
-      test('Organizers and group members should be arrays', () => {
+      test('Founders and group members should be arrays', () => {
         const member = Math.floor(Math.random() * 20);
-        expect(Array.isArray(orgMembers[member].organizers)).to.equal(true);
+        expect(Array.isArray(orgMembers[member].founders)).to.equal(true);
         expect(Array.isArray(orgMembers[member].group_members)).to.equal(true);
       });
-      test('Organizers and group members should be memberIds between 0 and 499', () => {
+      test('Founders and group members should be memberIds between 0 and 499', () => {
         const members = _.flatMap(orgMembers, 'group_members');
-        const organizers = _.flatMap(orgMembers, 'organizers');
-        const totalMembers = _.uniq(_.concat(members, organizers));
+        const founders = _.flatMap(orgMembers, 'founders');
+        const totalMembers = _.uniq(_.concat(members, founders));
         const rightFormat = _.reduce(totalMembers, (acc, value) => {
           return acc && /m([0-9]|[1-8][0-9]|9[0-9]|[1-3][0-9]{2}|4[0-8][0-9]|49[0-9])/.test(value);
         }, true);
