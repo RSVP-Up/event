@@ -20,6 +20,7 @@ app.get('/event(/summary)?/:eventId', (req, res) => {
   return Events.findOne({ eventId: req.params.eventId })
     .then((event) => {
       eventData.title = event.title;
+      // if the request is not for summary add date and time
       if (!/summary/.test(req.url)) {
         eventData.local_date_time = event.local_date_time;
       }
@@ -43,7 +44,7 @@ app.get('/event/timedate/:eventId', (req, res) => Events.findOne({ eventId: req.
     const timedate = {
       local_date_time: event.local_date_time,
       description: event.series.description ? event.series.description : '',
-    }
+    };
     res.json(timedate);
   }));
 
