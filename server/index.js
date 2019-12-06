@@ -31,6 +31,14 @@ app.get('/event/:eventId', (req, res) => {
     });
 });
 
+app.get('/event/org/members/:eventId', (req, res) => {
+  return Events.findOne({ eventId: req.params.eventId })
+    .then((event) => Orgs.findOne({ orgId: event.orgId }, 'members'))
+    .then((org) => {
+      res.json(org.members);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Event module listening on port ${PORT}`);
 });
