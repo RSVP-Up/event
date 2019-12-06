@@ -31,13 +31,20 @@ app.get('/event/:eventId', (req, res) => {
     });
 });
 
-app.get('/event/org/members/:eventId', (req, res) => {
-  return Events.findOne({ eventId: req.params.eventId })
-    .then((event) => Orgs.findOne({ orgId: event.orgId }, 'members'))
-    .then((org) => {
-      res.json(org.members);
-    });
-});
+app.get('/event/org/members/:eventId', (req, res) => Events.findOne({ eventId: req.params.eventId })
+  .then((event) => Orgs.findOne({ orgId: event.orgId }, 'members'))
+  .then((org) => {
+    res.json(org.members);
+  }));
+
+app.get('/event/timedate/:eventId', (req, res) => Events.findOne({ eventId: req.params.eventId })
+  .then((event) => {
+    const timedate = {
+      local_date_time: event.local_date_time,
+      description: event.series.description ? event.series.description : '',
+    }
+    res.json(timedate);
+  }));
 
 app.listen(PORT, () => {
   console.log(`Event module listening on port ${PORT}`);
