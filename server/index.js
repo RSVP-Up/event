@@ -11,19 +11,24 @@ const PORT = 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// {title: ‘Algorithms @ Betterment’,
-//   local_date_time: "2015-04-03T20:10:12.819Z",
-//   Org_name: ‘Women Who Code’,
-//   private: true}
-//   {title: string,
-//   local_date_time: string,
-//   Org_name: string,
-//   private: boolean}
 app.get('/event/:eventId', (req, res) => {
+  const eventData = {
+    title: '',
+    local_date_time: '',
+    org_name: '',
+    private: false,
+  };
   return Events.findOne({ eventId: req.params.eventId })
     .then((event) => {
-      res.send(event);
+      eventData.title = event.title;
+      eventData.local_date_time = event.local_date_time;
+      return Orgs.findOne({ orgId: event.orgId }, 'org_name org_private');
     })
+    .then((org) => {
+      eventData.org_name = org.org_name;
+      eventData.private = org.org_private;
+      res.json(eventData);
+    });
 });
 
 app.listen(PORT, () => {
