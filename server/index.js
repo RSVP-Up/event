@@ -21,7 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   private: boolean}
 app.get('/event/:eventId', (req, res) => {
   return Events.findOne({ eventId: req.params.eventId })
-    .then()
+    .then((event) => {
+      res.send(event);
+    })
 });
 
 app.listen(PORT, () => {
