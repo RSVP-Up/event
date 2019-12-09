@@ -9,6 +9,10 @@
   "scripts": {
     "test": "jest",
     "db:seed": "node database/seed.js",
+<<<<<<< HEAD
+=======
+    "dev": "webpack -d --watch",
+>>>>>>> [WIP] Added scripts for webpack and server
     "start": "nodemon server/index.js"
   },
   "repository": {
