@@ -37,7 +37,9 @@
     "jest": "^24.9.0",
     "request": "^2.88.0",
     "sinon": "^7.5.0",
-    "sinon-mongoose": "^2.3.0"
+    "sinon-mongoose": "^2.3.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
     "bluebird": "^3.7.1",
