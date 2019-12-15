@@ -6,6 +6,19 @@
   "engines": {
     "node": ">=6.13.0"
   },
+  "browserslist": [
+    "> 1%",
+    "ie >= 8",
+    "edge >= 15",
+    "ie_mob >= 10",
+    "ff >= 45",
+    "chrome >= 45",
+    "safari >= 7",
+    "opera >= 23",
+    "ios >= 7",
+    "android >= 4",
+    "bb >= 10"
+  ],
   "scripts": {
     "test": "jest",
     "db:seed": "node database/seed.js",
@@ -47,14 +60,17 @@
     "sinon-mongoose": "^2.3.0"
   },
   "dependencies": {
+    "autoprefixer": "^9.7.3",
     "bluebird": "^3.7.1",
     "body-parser": "^1.19.0",
+    "browserslist": "^4.8.2",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.12",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "semantic-ui-react": "^0.88.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }
