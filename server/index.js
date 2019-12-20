@@ -1,6 +1,12 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
+var corsOptions = {
+  origin: 'http://localhost:3001',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const Orgs = require('../database/Org.js');
 const Events = require('../database/Event.js');
@@ -19,7 +25,7 @@ const errorBody = {
   message: 'That event does not exist',
 };
 
-app.get('/event(/summary)?/:eventId', (req, res) => {
+app.get('/event(/summary)?/:eventId', cors(corsOptions), (req, res) => {
   const eventData = {
     title: '',
     org_name: '',
@@ -45,7 +51,7 @@ app.get('/event(/summary)?/:eventId', (req, res) => {
     });
 });
 
-app.get('/event/org/members/:eventId', (req, res) => Events.findOne({ eventId: req.params.eventId })
+app.get('/event/org/members/:eventId', cors(corsOptions), (req, res) => Events.findOne({ eventId: req.params.eventId })
   .then((event) => {
     if (event === null) {
       res.status(404).json(errorBody);
@@ -57,7 +63,7 @@ app.get('/event/org/members/:eventId', (req, res) => Events.findOne({ eventId: r
     }
   }));
 
-app.get('/event/timedate/:eventId', (req, res) => Events.findOne({ eventId: req.params.eventId })
+app.get('/event/timedate/:eventId', cors(corsOptions), (req, res) => Events.findOne({ eventId: req.params.eventId })
   .then((event) => {
     if (event !== null) {
       const timedate = {
