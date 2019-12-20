@@ -10,9 +10,7 @@ import {
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
-
-// const eventAPI = 'http://localhost:5000/event';
-// const eventId = randomeventId
+import fetchAllEventData from '../fetch';
 
 class Event extends React.Component {
   constructor(props) {
@@ -20,11 +18,13 @@ class Event extends React.Component {
     this.state = {};
   }
 
-  // fetchEventData() {
-  //   const options = {
-  //     method: 'GET',
-  //   }
-  // }
+  componentDidMount() {
+    const randomEventId = Math.floor(Math.random() * 100);
+    fetchAllEventData(randomEventId)
+      .then(response => {
+        console.log(response)
+      });
+  }
 
   render() {
     const {
@@ -70,13 +70,3 @@ class Event extends React.Component {
 }
 
 export default Event;
-
-// for fetching in parallel
-// function fetchEventData() {
-//   return Promise.all([
-//     fetchEvent(),
-//     fetchHosts()
-//   ]).then(([event, hosts]) => {
-//     return {event, hosts};
-//   })
-// }
