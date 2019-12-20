@@ -51,5 +51,11 @@ module.exports = {
     'comma-style': [2, 'last'],
     'quotes': [1, 'single'],
     'no-console': 'off',
+    'no-unused-vars': [
+      "error",
+      {
+        varsIgnorePattern: "React"
+      }
+    ]
   },
 };
