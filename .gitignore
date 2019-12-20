@@ -4,3 +4,5 @@
 # misc
 .DS_Store
 .env
+
+/public/bundle.js
