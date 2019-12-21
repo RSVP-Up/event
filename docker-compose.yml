@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    container_name: meetup-event
+    build: .
+    ports:
+      - '5000:5000'
+    depends_on:
+      - 'database'
+    command: sh -c 'npm run db:seed && npm start'
+  database:
+    container_name: mongo-event
+    image: mongo:latest
