@@ -5,4 +5,5 @@
 .DS_Store
 .env
 
+# webpack
 /public/bundle.js
