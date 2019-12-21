@@ -21,9 +21,11 @@
   ],
   "scripts": {
     "test": "jest",
-    "db:seed": "node database/seed.js",
-    "dev": "webpack -d --watch",
-    "start": "nodemon server/index.js"
+    "db:seed": "node ./database/seed.js",
+    "build:dev": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "start:dev": "nodemon server/index.js",
+    "start": "node ./server/index.js"
   },
   "jest": {
     "transform": {
