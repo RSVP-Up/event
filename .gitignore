@@ -6,4 +6,11 @@
 .env
 
 # webpack
-/public/bundle.js
+public/
+
+#git
+.git/
+.gitignore
+
+# misc
+LICENSE
