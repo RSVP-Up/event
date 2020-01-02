@@ -1,5 +1,9 @@
 import data from './sample_data';
-const eventAPI = 'http://localhost:5000/event/';
+
+// TODO automate CircleCI build and deployment to AWS
+
+const eventAPI = 'http://event-header/event/';
+// TODO get publicly available web service address for rsvpAPI
 // const rsvpAPI = 'http://localhost:3001/rsvp/hosts/';
 
 const { hosts } = data;
@@ -35,7 +39,6 @@ const fetchEvent = (eventId) => {
 const fetchAllEventData = (eventId) => {
   return fetchEvent(eventId)
     .then(event => {
-      console.log(event)
       return { event, hosts };
     })
 };
