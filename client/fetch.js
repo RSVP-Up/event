@@ -2,7 +2,7 @@ import data from './sample_data';
 
 // TODO automate CircleCI build and deployment to AWS
 
-const eventAPI = 'http://event-header/event/';
+const eventAPI = 'http://ec2-18-224-109-0.us-east-2.compute.amazonaws.com/event/';
 // TODO get publicly available web service address for rsvpAPI
 // const rsvpAPI = 'http://localhost:3001/rsvp/hosts/';
 
