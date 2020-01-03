@@ -12,6 +12,11 @@ const style = {
     fontSize: '12px',
     fontFamily: '"Roboto", sans-serif',
   },
+  modal: {
+    fontFamily: '"Roboto", sans-serif',
+    background: 'white',
+    fontSize: '16px',
+  },
   title: {
     fontFamily: '"Roboto", sans-serif',
     color: '#212121',

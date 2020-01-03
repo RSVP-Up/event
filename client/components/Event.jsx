@@ -7,9 +7,13 @@ import {
   Icon,
   Grid,
   Container,
+  Modal,
+  Header,
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
+import ShareModal from './ShareModal';
+import { Model } from 'mongoose';
 
 // const eventAPI = 'http://localhost:5000/event';
 // const eventId = randomeventId
@@ -53,10 +57,7 @@ class Event extends React.Component {
                     <Hosts style={style} hosts={hosts} />
                   </Grid.Column>
                   <Grid.Column verticalAlign="bottom" floated="right">
-                    <Button size="medium" basic floated="right" style={style.button}>
-                      <Icon name="share square" />
-                      Share
-                    </Button>
+                    <ShareModal style={style.modal} button={style.button} />
                   </Grid.Column>
                 </Grid>
               </Item.Description>
