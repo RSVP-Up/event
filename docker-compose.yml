@@ -1,13 +1,11 @@
 version: '3'
 services:
-  event-header:
-    container_name: meetup-event
-    build: .
+  event:
+    image: manuelag19/drliskov_event
     ports:
-      - '5000:5000'
+      - '80:5000'
     depends_on:
       - 'database'
     command: sh -c 'npm run db:seed && npm start'
   database:
-    container_name: mongo-event
     image: mongo:latest
