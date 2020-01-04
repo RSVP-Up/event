@@ -16,6 +16,9 @@ const style = {
     fontFamily: '"Roboto", sans-serif',
     background: 'white',
     fontSize: '16px',
+    width: '440px',
+    height: '373px',
+    padding: '20px',
   },
   title: {
     fontFamily: '"Roboto", sans-serif',

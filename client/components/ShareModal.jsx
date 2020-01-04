@@ -43,15 +43,16 @@ const ShareModal = ({ button, style }) => (
   >
     <Modal.Content>
       {/* TO DO create a click event on the image to close modal */}
-      <Button basic size="large" icon="times" />
-      {/* <Header content="X" as="h2" /> */}
+      <Image link basic size="large" icon="times" />
+      <Container text>
+        <Header as="h2" content="Share this event" />
+      </Container>
       <Container style={{ padding: '20px' }}>
-        <Header as="h1" content="Share this event" />
-        <Grid style={{ fontFamily: '"Roboto", sans-serif' }} divided="vertically" verticalAlign="bottom">
+        <Grid style={{ fontFamily: '"Roboto", sans-serif' }} divided="vertically">
           {shareTo.map((destination) => (
             <Grid.Row key={destination.content}>
-              <Container>
-                <Icon size="big" name={destination.iconName} color="grey" />
+              <Container text>
+                <Icon size="big" link name={destination.iconName} color="grey" />
                 <a href="#" style={{ color: 'rgb(0, 162, 199)', cursor: 'pointer', fontSize: '16px' }}>
                   {destination.content}
                 </a>
