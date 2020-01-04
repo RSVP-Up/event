@@ -51,7 +51,7 @@ const ShareModal = ({ button, style }) => (
           {shareTo.map((destination) => (
             <Grid.Row key={destination.content}>
               <Container>
-                <Icon size="big" name={destination.iconName} />
+                <Icon size="big" name={destination.iconName} color="grey" />
                 <a href="#" style={{ color: 'rgb(0, 162, 199)', cursor: 'pointer', fontSize: '16px' }}>
                   {destination.content}
                 </a>
