@@ -64,9 +64,9 @@ class ShareModal extends React.Component {
         centered={false}
         style={style}
       >
+        <Icon link size="large" name="times" onClick={this.handleClose} />
         <Modal.Content>
           {/* TO DO create a click event on the image to close modal */}
-          <Button basic size="large" icon="times" onClick={this.handleClose} />
           <Container>
             <Header as="h1" content="Share this event" />
             <Grid style={{ fontFamily: '"Roboto", sans-serif' }} divided="vertically" verticalAlign="bottom">
