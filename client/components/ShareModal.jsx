@@ -34,26 +34,39 @@ class ShareModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      modalOpen: false,
     };
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleOpen() {
+    this.setState({ modalOpen: true });
+  }
+
+  handleClose() {
+    this.setState({ modalOpen: false });
   }
 
   render() {
     const { style, button } = this.props;
+    const { modalOpen } = this.state;
     return (
       <Modal
         trigger={(
-          <Button size="medium" basic floated="right" style={button}>
+          <Button size="medium" basic floated="right" style={button} onClick={this.handleOpen}>
             <Icon name="share square" />
             Share
           </Button>
         )}
+        open={modalOpen}
+        onClose={this.handleClose}
         centered={false}
         style={style}
       >
         <Modal.Content>
           {/* TO DO create a click event on the image to close modal */}
-          <Button basic size="large" icon="times" />
+          <Button basic size="large" icon="times" onClick={this.handleClose} />
           <Container>
             <Header as="h1" content="Share this event" />
             <Grid style={{ fontFamily: '"Roboto", sans-serif' }} divided="vertically" verticalAlign="bottom">
