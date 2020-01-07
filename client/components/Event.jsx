@@ -76,24 +76,8 @@ class Event extends React.Component {
               </Container>
             </Segment>
           </Sticky>
-          {(!fixed) ? <Divider /> : null}
+          {(!fixed) ? <Divider style={{ marginBottom: '0' }} /> : null}
         </Visibility>
-        <Segment style={{ minHeight: '700', padding: '1em 0em' }} vertical>
-          <Placeholder>
-            <Placeholder.Image square />
-            <Placeholder.Paragraph>
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Paragraph>
-            <Placeholder.Image square />
-          </Placeholder>
-        </Segment>
       </div>
     );
   }
