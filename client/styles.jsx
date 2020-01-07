@@ -40,7 +40,10 @@ const style = {
   hostedBy: {
     color: '#212121',
   },
-
+  fixedTitle: {
+    fontSize: '16px',
+    fontWeight: '600',
+  },
 };
 
 export default style;
