@@ -4,10 +4,7 @@ import {
   Header,
   Button,
   Icon,
-  Image,
-  List,
   Container,
-  Item,
   Grid,
 } from 'semantic-ui-react';
 
