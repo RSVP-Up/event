@@ -5,4 +5,12 @@
 .DS_Store
 .env
 
-/public/bundle.js
+# webpack
+public/
+
+#git
+.git/
+.gitignore
+
+# misc
+LICENSE
