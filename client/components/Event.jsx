@@ -12,34 +12,39 @@ import {
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
-import ShareModal from './ShareModal';
-import { Model } from 'mongoose';
 
-// const eventAPI = 'http://localhost:5000/event';
-// const eventId = randomeventId
+import ShareModal from './ShareModal';
+import fetchAllEventData from '../fetch';
 
 class Event extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      timeDate: null,
+      title: null,
+      hosts: null,
+    };
   }
 
-  // fetchEventData() {
-  //   const options = {
-  //     method: 'GET',
-  //   }
-  // }
+  componentDidMount() {
+    const randomEventId = Math.floor(Math.random() * 100);
+    fetchAllEventData(randomEventId)
+      .then((response) => {
+        const date = moment(response.event.local_date_time).format('LL');
+        const weekday = moment(response.event.local_date_time).format('dddd');
+        const timeDate = `${weekday}, ${date}`;
+        const { title } = response.event;
+        this.setState({ timeDate, title, hosts: response.hosts });
+      });
+  }
 
   render() {
     const {
-      data: {
-        event: { title, local_date_time },
-        hosts,
-      },
-    } = this.props;
-    const date = moment(local_date_time).format('LL');
-    const weekday = moment(local_date_time).format('dddd');
-    const timeDate = `${weekday}, ${date}`;
+      timeDate,
+      title,
+      hosts,
+    } = this.state;
+
     return (
       <div style={style.div}>
         <Container text>
@@ -54,7 +59,8 @@ class Event extends React.Component {
               <Item.Description>
                 <Grid columns={2} stackable>
                   <Grid.Column floated="left">
-                    <Hosts style={style} hosts={hosts} />
+                    {/* if the component hasn't mounted don't bother rendering */}
+                    {hosts ? <Hosts style={style} hosts={hosts} /> : ''}
                   </Grid.Column>
                   <Grid.Column verticalAlign="bottom" floated="right">
                     <ShareModal style={style.modal} button={style.button} />
@@ -71,13 +77,3 @@ class Event extends React.Component {
 }
 
 export default Event;
-
-// for fetching in parallel
-// function fetchEventData() {
-//   return Promise.all([
-//     fetchEvent(),
-//     fetchHosts()
-//   ]).then(([event, hosts]) => {
-//     return {event, hosts};
-//   })
-// }

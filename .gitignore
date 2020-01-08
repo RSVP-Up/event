@@ -7,3 +7,10 @@ node_modules
 
 #webpack
 public
+
+#git
+.git/
+.gitignore
+
+# misc
+LICENSE
