@@ -1,14 +1,11 @@
 import React from 'react';
 import moment from 'moment';
+import queryString from 'query-string';
 import {
-  Button,
   Divider,
   Item,
-  Icon,
   Grid,
   Container,
-  Modal,
-  Header,
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
@@ -27,8 +24,10 @@ class Event extends React.Component {
   }
 
   componentDidMount() {
-    const randomEventId = Math.floor(Math.random() * 100);
-    fetchAllEventData(randomEventId)
+    // window.location.search is the end of address after '?' event_id=0
+    const value = queryString.parse(window.location.search);
+    const id = value.event_id;
+    fetchAllEventData(id)
       .then((response) => {
         const date = moment(response.event.local_date_time).format('LL');
         const weekday = moment(response.event.local_date_time).format('dddd');
