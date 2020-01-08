@@ -1,12 +1,12 @@
 # dependencies
-/node_modules
+node_modules
 
 # misc
 .DS_Store
 .env
 
-# webpack
-public/
+#webpack
+public
 
 #git
 .git/
