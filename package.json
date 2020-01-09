@@ -21,9 +21,11 @@
   ],
   "scripts": {
     "test": "jest",
-    "db:seed": "node database/seed.js",
-    "dev": "webpack -d --watch",
-    "start": "nodemon server/index.js"
+    "db:seed": "node ./database/seed.js",
+    "build:dev": "webpack -d --watch",
+    "build:prod": "webpack -p",
+    "start:dev": "nodemon server/index.js",
+    "start": "node ./server/index.js"
   },
   "jest": {
     "transform": {
@@ -69,6 +71,7 @@
     "bluebird": "^3.7.1",
     "body-parser": "^1.19.0",
     "browserslist": "^4.8.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "lodash": "^4.17.15",

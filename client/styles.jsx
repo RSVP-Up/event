@@ -23,7 +23,7 @@ const style = {
   title: {
     fontFamily: '"Roboto", sans-serif',
     color: '#212121',
-    fontSize: '28px',
+    fontSize: '24px',
     fontWeight: '900',
     margin: '0px 0px 8px 0px',
   },

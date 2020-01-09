@@ -1,0 +1,11 @@
+version: '3'
+services:
+  event:
+    image: manuelag19/drliskov_event
+    ports:
+      - '80:5000'
+    depends_on:
+      - 'database'
+    command: sh -c 'npm run db:seed && npm start'
+  database:
+    image: mongo:latest

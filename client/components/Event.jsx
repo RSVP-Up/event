@@ -7,17 +7,22 @@ import {
   Container,
   Visibility,
   Segment,
-  Placeholder,
   Sticky,
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
 import ShareModal from './ShareModal';
+import fetchAllEventData from '../fetch';
 
 class Event extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fixed: false };
+    this.state = { 
+        fixed: false, 
+        timeDate: null,
+        title: null,
+        hosts: null,
+    };
     this.showFixedMenu = this.showFixedMenu.bind(this);
     this.hideFixedMenu = this.hideFixedMenu.bind(this);
   }
@@ -30,17 +35,24 @@ class Event extends React.Component {
     this.setState({ fixed: false });
   }
 
+  componentDidMount() {
+    const randomEventId = Math.floor(Math.random() * 100);
+    fetchAllEventData(randomEventId)
+      .then((response) => {
+        const date = moment(response.event.local_date_time).format('LL');
+        const weekday = moment(response.event.local_date_time).format('dddd');
+        const timeDate = `${weekday}, ${date}`;
+        const { title } = response.event;
+        this.setState({ timeDate, title, hosts: response.hosts });
+      });
+  }
+
   render() {
-    const {
-      data: {
-        event: { title, local_date_time },
-        hosts,
-      },
-    } = this.props;
-    const { fixed } = this.state;
-    const date = moment(local_date_time).format('LL');
-    const weekday = moment(local_date_time).format('dddd');
-    const timeDate = `${weekday}, ${date}`;
+      fixed,
+      timeDate,
+      title,
+      hosts,
+    } = this.state;
     return (
       <div style={style.div}>
         <Visibility
@@ -49,6 +61,7 @@ class Event extends React.Component {
           onBottomPassedReverse={this.hideFixedMenu}
         >
           <Sticky active={fixed} context={this.contextRef}>
+            // padding needs to be 0 so the gray background goes from the bottom of the header to the top of the footer
             <Segment basic={!fixed} style={{ paddingTop: '0em' }}>
               <Container text>
                 <Item style={style.item}>
@@ -59,6 +72,7 @@ class Event extends React.Component {
                     <Item.Header style={fixed ? style.fixedTitle : style.title}>
                       {title}
                     </Item.Header>
+                    // the hosts information doesn't show up in the fixed menu
                     {(fixed) ? null : (
                       <Item.Description>
                         <Grid columns={2} stackable>
@@ -76,6 +90,7 @@ class Event extends React.Component {
               </Container>
             </Segment>
           </Sticky>
+          // when the menu is fixed the divider isn't necessary
           {(!fixed) ? <Divider style={{ marginBottom: '0' }} /> : null}
         </Visibility>
       </div>
@@ -84,13 +99,3 @@ class Event extends React.Component {
 }
 
 export default Event;
-
-// for fetching in parallel
-// function fetchEventData() {
-//   return Promise.all([
-//     fetchEvent(),
-//     fetchHosts()
-//   ]).then(([event, hosts]) => {
-//     return {event, hosts};
-//   })
-// }
