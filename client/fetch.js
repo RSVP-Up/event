@@ -16,7 +16,6 @@ const fetchAllEventData = (eventId) => (
     fetchEventDataFromAPI(eventAPI, eventId),
     fetchEventDataFromAPI(rsvpAPI, eventId, 'hosts'),
   ]).then(([event, hosts]) => {
-    console.log('event', event, 'hosts', 'hosts');
     return { event, hosts };
   }));
 
