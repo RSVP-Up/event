@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import moment from 'moment';
 import queryString from 'query-string';
 import {
@@ -9,6 +9,7 @@ import {
   Visibility,
   Segment,
   Sticky,
+  Ref,
 } from 'semantic-ui-react';
 import style from '../styles';
 import Hosts from './hosts';
@@ -18,22 +19,15 @@ import fetchAllEventData from '../fetch';
 class Event extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-        fixed: false, 
-        timeDate: null,
-        title: null,
-        hosts: null,
+    this.state = {
+      fixed: false,
+      timeDate: null,
+      title: null,
+      hosts: null,
     };
     this.showFixedMenu = this.showFixedMenu.bind(this);
     this.hideFixedMenu = this.hideFixedMenu.bind(this);
-  }
-
-  showFixedMenu() {
-    this.setState({ fixed: true });
-  }
-
-  hideFixedMenu() {
-    this.setState({ fixed: false });
+    this.contextRef = createRef();
   }
 
   componentDidMount() {
@@ -50,52 +44,65 @@ class Event extends React.Component {
       });
   }
 
+  showFixedMenu() {
+    this.setState({ fixed: true });
+  }
+
+  hideFixedMenu() {
+    this.setState({ fixed: false });
+  }
+
   render() {
+    const {
       fixed,
       timeDate,
       title,
       hosts,
     } = this.state;
     return (
-      <div style={style.div}>
-        <Visibility
-          once={false}
-          onBottomPassed={this.showFixedMenu}
-          onBottomPassedReverse={this.hideFixedMenu}
-        >
-          <Sticky active={fixed} context={this.contextRef}>
-            // padding needs to be 0 so the gray background goes from the bottom of the header to the top of the footer
-            <Segment basic={!fixed} style={{ paddingTop: '0em' }}>
-              <Container text>
-                <Item style={style.item}>
-                  <Item.Content verticalAlign="middle">
-                    <Item.Meta>
-                      <p style={style.timeDate}>{timeDate}</p>
-                    </Item.Meta>
-                    <Item.Header style={fixed ? style.fixedTitle : style.title}>
-                      {title}
-                    </Item.Header>
-                    // the hosts information doesn't show up in the fixed menu
-                    {(fixed) ? null : (
-                      <Item.Description>
-                        <Grid columns={2} stackable>
-                          <Grid.Column floated="left">
-                            <Hosts style={style} hosts={hosts} />
-                          </Grid.Column>
-                          <Grid.Column verticalAlign="bottom" floated="right">
-                            <ShareModal style={style.modal} button={style.button} />
-                          </Grid.Column>
-                        </Grid>
-                      </Item.Description>
-                    )}
-                  </Item.Content>
-                </Item>
-              </Container>
-            </Segment>
-          </Sticky>
-          // when the menu is fixed the divider isn't necessary
-          {(!fixed) ? <Divider style={{ marginBottom: '0' }} /> : null}
-        </Visibility>
+      <div>
+        <Ref innerRef={this.contextRef}>
+          <Visibility
+            once={false}
+            onBottomPassed={this.showFixedMenu}
+            onBottomPassedReverse={this.hideFixedMenu}
+          >
+            <Sticky active={fixed} context={this.contextRef}>
+              {/* // padding needs to be 0 so the gray background
+              goes from the bottom of the header to the top of the footer */}
+              <Segment basic={!fixed} style={{ paddingTop: '0em' }}>
+                {/* Alignment  */}
+                <Container>
+                  <Item style={style.item}>
+                    <Item.Content verticalAlign="middle">
+                      <Item.Meta>
+                        <p style={style.timeDate}>{timeDate}</p>
+                      </Item.Meta>
+                      <Item.Header style={fixed ? style.fixedTitle : style.title}>
+                        {title}
+                      </Item.Header>
+                      {/* // the hosts information doesn't show up in the fixed menu */}
+                      {(fixed) ? null : (
+                        <Item.Description>
+                          <Grid columns={2} stackable>
+                            <Grid.Column floated="left">
+                              {(hosts) ? <Hosts style={style} hosts={hosts} /> : null}
+                            </Grid.Column>
+                            <Grid.Column verticalAlign="bottom" floated="right">
+                              <ShareModal style={style.modal} button={style.button} />
+                            </Grid.Column>
+                          </Grid>
+                        </Item.Description>
+                      )}
+                    </Item.Content>
+                  </Item>
+                </Container>
+              </Segment>
+            </Sticky>
+            {/* // when the menu is fixed the divider isn't necessary */}
+            {(!fixed) ? <Divider style={{ marginBottom: '0' }} /> : null}
+          </Visibility>
+        </Ref>
       </div>
     );
   }
