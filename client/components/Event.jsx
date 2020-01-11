@@ -67,33 +67,31 @@ class Event extends React.Component {
           <Sticky active={fixed}>
             {/* // padding needs to be 0 so the gray background
             goes from the bottom of the header to the top of the footer */}
-            <Segment basic={!fixed} style={{ paddingTop: '0em' }}>
+            <Segment basic={!fixed} style={{ padding: '0 20%' }}>
               {/* Alignment  */}
-              <Container>
-                <Item style={style.item}>
-                  <Item.Content verticalAlign="middle">
-                    <Item.Meta>
-                      <p style={style.timeDate}>{timeDate}</p>
-                    </Item.Meta>
-                    <Item.Header style={fixed ? style.fixedTitle : style.title}>
-                      {title}
-                    </Item.Header>
-                    {/* // the hosts information doesn't show up in the fixed menu */}
-                    {(fixed) ? null : (
-                      <Item.Description>
-                        <Grid columns={2} stackable>
-                          <Grid.Column floated="left">
-                            {(hosts) ? <Hosts style={style} hosts={hosts} /> : null}
-                          </Grid.Column>
-                          <Grid.Column verticalAlign="bottom" floated="right">
-                            <ShareModal style={style.modal} button={style.button} />
-                          </Grid.Column>
-                        </Grid>
-                      </Item.Description>
-                    )}
-                  </Item.Content>
-                </Item>
-              </Container>
+              <Item style={style.item}>
+                <Item.Content verticalAlign="middle">
+                  <Item.Meta>
+                    <p style={style.timeDate}>{timeDate}</p>
+                  </Item.Meta>
+                  <Item.Header style={fixed ? style.fixedTitle : style.title}>
+                    {title}
+                  </Item.Header>
+                  {/* // the hosts information doesn't show up in the fixed menu */}
+                  {(fixed) ? null : (
+                    <Item.Description>
+                      <Grid columns={2} stackable>
+                        <Grid.Column floated="left">
+                          {(hosts) ? <Hosts style={style} hosts={hosts} /> : null}
+                        </Grid.Column>
+                        <Grid.Column verticalAlign="bottom" floated="right">
+                          <ShareModal style={style.modal} button={style.button} />
+                        </Grid.Column>
+                      </Grid>
+                    </Item.Description>
+                  )}
+                </Item.Content>
+              </Item>
             </Segment>
           </Sticky>
           {/* // when the menu is fixed the divider isn't necessary */}
