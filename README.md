@@ -1,6 +1,6 @@
-# event
+# Event
 
-> Project description
+> Details for the event: shows date, title, hosts, along for the 
 
 ## Related Projects
 
@@ -13,8 +13,9 @@
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
+2. [Requirements](#requirements)
+3. [Development](#development)
+4. [Production](#production)
 
 ## Usage
 
