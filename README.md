@@ -4,10 +4,10 @@
 
 ## Related Projects
 
-  - https://github.com/teamName/relatedEvents
+  - https://github.com/teamName/relatedEvents (WIP)
   - https://github.com/teamName/rsvp
-  - https://github.com/teamName/location
-  - https://github.com/teamName/comments
+  x https://github.com/teamName/location
+  x https://github.com/teamName/comments
   - https://github.com/teamName/attendees
 
 ## Table of Contents
@@ -23,9 +23,10 @@
 ## Requirements
 
 - Node 6.13.0
-- etc
+- React
+- Webpack
+- Semantic UI
 
-## Development
 
 ### Installing Dependencies
 
@@ -36,3 +37,20 @@ npm install -g webpack
 npm install
 ```
 
+## Development
+
+For development mode this project uses nodemon and webpack watching for changes
+
+```sh
+npm run build:dev
+npm run start:dev
+```
+
+## Production
+
+For production mode this project uses node and webpack in production
+
+```sh
+npm run build:prod
+npm start
+```
