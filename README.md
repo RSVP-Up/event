@@ -1,13 +1,13 @@
 # Event
 
-> Details for the event: shows date, title, hosts, along for the 
+> Details for the event: shows date, title, hosts, along with the thumbnail for the first host. See fetch.js for data fetching.
 
 ## Related Projects
 
   - https://github.com/teamName/relatedEvents (WIP)
   - https://github.com/teamName/rsvp
-  x https://github.com/teamName/location
-  x https://github.com/teamName/comments
+  - x https://github.com/teamName/location
+  - x https://github.com/teamName/comments
   - https://github.com/teamName/attendees
 
 ## Table of Contents
