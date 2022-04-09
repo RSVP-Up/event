@@ -75,7 +75,7 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.7.12",
     "query-string": "^6.9.0",
     "react": "^16.12.0",
