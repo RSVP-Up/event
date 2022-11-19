@@ -84,6 +84,6 @@
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^4.4.1",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   }
 }
